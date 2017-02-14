@@ -58,7 +58,7 @@ var seaTacAirport = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -71,11 +71,23 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
-
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < seaTacAirport.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = seaTacAirport.avgHours[i];
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + seaTacAirport.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
 
   listElement.appendChild(listLiEl);
 };
@@ -145,7 +157,7 @@ var capitolHill = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -158,12 +170,23 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
-
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < capitolHill.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = capitolHill.avgHours[i];
-
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + capitolHill.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
   listElement.appendChild(listLiEl);
 };
 headerEl.textContent = capitolHill.name;
@@ -181,7 +204,7 @@ var alki = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -195,10 +218,23 @@ var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
 
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < alki.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = alki.avgHours[i];
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + alki.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
 
   listElement.appendChild(listLiEl);
 };
