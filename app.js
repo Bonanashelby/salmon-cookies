@@ -1,33 +1,179 @@
 'use strict';
 
-var userFullName = prompt('Please enter your full name.');
-var userEmail = prompt('Please enter your email');
-
-var myUser = {
-  fullName: userFullName,
-  userEmail: userEmail,
-  login: function(){
-    console.log(this.fullName + ' has now logged in!');
+console.log('-----First and Pike Begins----');
+var firstAndPike = {
+  name: 'First and Pike',
+  minCustomer: 23,
+  maxCustomer: 65,
+  avgCookies: 6.3,
+  avgHours: [],
+  cookiesPerHour: function() {
+    for (var hours = 0; hours < 15; hours++) {
+      console.log('Inside loop ' + hours);
+      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      this.avgHours.push(mathStorage);
+    }
   }
 };
 
-console.log('-------NEW USER-------');
-console.log(myUser);
+console.log(firstAndPike.cookiesPerHour());
 
-myUser.login();
+var sectEl = document.getElementById('cookie-list');
 
-console.log('-----present elements-----');
+var listElement = document.createElement('ul');
 
-var userElement = document.createElement('h1');//Step 1
-// userElement = <h1></h1> element node type
+var headerEl = document.createElement('h1');
 
-userElement.setAttribute('id', 'first-user-heading');//Step 2 - assign attributes can be multi attributes
-// userElement = <h1 id='first-user-heading'></h1>
+for (var i = 0; i < firstAndPike.avgHours.length; i++) {
+  var listLiEl = document.createElement('li');
 
-userElement.textContent = myUser.fullName;
-// userElement = <h1 id='first-user-heading'>"someUserName"</h1>
+  listLiEl.textContent = firstAndPike.avgHours[i];
 
-var sectionEl = document.getElementById('main-content');//Got Reference
-//<section id="main-content"></scection> //from our index.html
+  listElement.appendChild(listLiEl);
+};
+headerEl.textContent = firstAndPike.name;
+sectEl.appendChild(headerEl);
+sectEl.appendChild(listElement);
 
-sectionEl.appendChild(userElement);//Step 3
+console.log('-----SeaTac Airport Begins-----');
+var seaTacAirport = {
+  name: 'SeaTac Airport',
+  minCustomer: 3,
+  maxCustomer: 24,
+  avgCookies: 1.2,
+  avgHours: [],
+  cookiesPerHour: function() {
+    for (var hours = 0; hours < 15; hours++) {
+      console.log('Inside loop ' + hours);
+      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      this.avgHours.push(mathStorage);
+    }
+  }
+};
+
+console.log(seaTacAirport.cookiesPerHour());
+
+var sectEl = document.getElementById('cookie-list');
+
+var listElement = document.createElement('ul');
+
+var headerEl = document.createElement('h1');
+
+for (var i = 0; i < seaTacAirport.avgHours.length; i++) {
+  var listLiEl = document.createElement('li');
+
+  listLiEl.textContent = seaTacAirport.avgHours[i];
+
+  listElement.appendChild(listLiEl);
+};
+headerEl.textContent = seaTacAirport.name;
+sectEl.appendChild(headerEl);
+sectEl.appendChild(listElement);
+
+console.log('----Seattle Center Begins-----');
+
+var seattleCenter = {
+  name: 'Seattle Center',
+  minCustomer: 11,
+  maxCustomer: 38,
+  avgCookies: 3.7,
+  avgHours: [],
+  cookiesPerHour: function() {
+    for (var hours = 0; hours < 15; hours++) {
+      console.log('Inside loop ' + hours);
+      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      this.avgHours.push(mathStorage);
+    }
+  }
+};
+
+console.log(seattleCenter.cookiesPerHour());
+
+var sectEl = document.getElementById('cookie-list');
+
+var listElement = document.createElement('ul');
+
+var headerEl = document.createElement('h1');
+
+for (var i = 0; i < seattleCenter.avgHours.length; i++) {
+  var listLiEl = document.createElement('li');
+
+  listLiEl.textContent = seattleCenter.avgHours[i];
+
+  listElement.appendChild(listLiEl);
+};
+headerEl.textContent = seattleCenter.name;
+sectEl.appendChild(headerEl);
+sectEl.appendChild(listElement);
+
+console.log('-----Capitol Hill Begins-----');
+
+var capitolHill = {
+  htmlId: 'Capitol Hill',
+  minCustomer: 20,
+  maxCustomer: 38,
+  avgCookies: 2.3,
+  avgHours: [],
+  cookiesPerHour: function() {
+    for (var hours = 0; hours < 15; hours++) {
+      console.log('Inside loop ' + hours);
+      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      this.avgHours.push(mathStorage);
+    }
+  }
+};
+
+console.log(capitolHill.cookiesPerHour());
+
+var sectEl = document.getElementById('cookie-list');
+
+var listElement = document.createElement('ul');
+
+var headerEl = document.createElement('h1');
+
+for (var i = 0; i < capitolHill.avgHours.length; i++) {
+  var listLiEl = document.createElement('li');
+
+  listLiEl.textContent = capitolHill.avgHours[i];
+
+  listElement.appendChild(listLiEl);
+};
+headerEl.textContent = capitolHill.name;
+sectEl.appendChild(headerEl);
+sectEl.appendChild(listElement);
+
+console.log('-----Alki Begins-----');
+
+var alki = {
+  name: 'Alki',
+  minCustomer: 2,
+  maxCustomer: 16,
+  avgCookies: 4.6,
+  avgHours: [],
+  cookiesPerHour: function() {
+    for (var hours = 0; hours < 15; hours++) {
+      console.log('Inside loop ' + hours);
+      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      this.avgHours.push(mathStorage);
+    }
+  }
+};
+
+console.log(alki.cookiesPerHour());
+
+var sectEl = document.getElementById('cookie-list');
+
+var listElement = document.createElement('ul');
+
+var headerEl = document.createElement('h1');
+
+for (var i = 0; i < alki.avgHours.length; i++) {
+  var listLiEl = document.createElement('li');
+
+  listLiEl.textContent = alki.avgHours[i];
+
+  listElement.appendChild(listLiEl);
+};
+headerEl.textContent = alki.name;
+sectEl.appendChild(headerEl);
+sectEl.appendChild(listElement);
