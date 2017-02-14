@@ -10,7 +10,7 @@ var firstAndPike = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -23,11 +23,24 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 
 for (var i = 0; i < firstAndPike.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = firstAndPike.avgHours[i];
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + firstAndPike.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
 
   listElement.appendChild(listLiEl);
 };
@@ -81,7 +94,7 @@ var seattleCenter = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -94,12 +107,27 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 
 for (var i = 0; i < seattleCenter.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
+  if (morning) {
+    currentTime = currentHour + ':00 am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ':00 pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + seattleCenter.avgHours[i];
+  currentHour++;
+  if (currentHour > 12) {
+    currentHour = 1;
+  }
 
-  listLiEl.textContent = seattleCenter.avgHours[i];
-
+//    currentTime
   listElement.appendChild(listLiEl);
 };
 headerEl.textContent = seattleCenter.name;
@@ -109,7 +137,7 @@ sectEl.appendChild(listElement);
 console.log('-----Capitol Hill Begins-----');
 
 var capitolHill = {
-  htmlId: 'Capitol Hill',
+  name: 'Capitol Hill',
   minCustomer: 20,
   maxCustomer: 38,
   avgCookies: 2.3,
