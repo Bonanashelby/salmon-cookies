@@ -1,5 +1,72 @@
 'use strict';
 
+function CookieStore(name, minCustomer, maxCustomer, avgCookies, hoursOpen){
+  this.name = name;
+  this.minCustomer = minCustomer;
+  this.maxCustomer = maxCustomer;
+  this.avgCookies = avgCookies;
+  this.hoursOpen = hoursOpen || [];
+  this.dailyTotal = 0;
+}
+
+CookieStore.prototype.getAvgCookieCount = function() {
+  for (var i = 0; i < storeHours.length; i++) {
+    var avgCookiesPerHour = Math.ceil(Math.floor((Math.random() * this.maxCustomer - this.minCustomer) + this.minCustomer) * this.avgCookies);
+    this.hoursOpen.push(avgCookiesPerHour);
+    this.dailyTotal += avgCookiesPerHour;
+  }
+};
+
+var firstAndPike = new CookieStore('First and Pike', 23, 65, 6.3);
+var seaTacAirport = new CookieStore('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
+var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
+var alki = new CookieStore('Alki', 2, 16, 4.6);
+
+var storeHours = ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
+
+var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+var tableEl = document.createElement('table');
+
+var headerRowEl = document.createElement('tr');
+tableEl.appendChild(headerRowEl);
+
+var blankEl = document.createElement('th');
+headerRowEl.appendChild(blankEl);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var headerHourEl = document.createElement('td');
+  headerHourEl.textContent = storeHours[i];
+  headerRowEl.appendChild(headerHourEl);
+}
+
+var headerDailyTotalEl = document.createElement('td');
+headerDailyTotalEl.textContent = 'Daily Total';
+headerRowEl.appendChild(headerDailyTotalEl);
+
+for (var i = 0; i < stores.length; i++) {
+  var currentStore = stores[i];
+  currentStore.getAvgCookieCount();
+  var rowEl = document.createElement('tr');
+  tableEl.appendChild(rowEl);
+
+  var nameEl = document.createElement('th');
+  nameEl.textContent = currentStore.name;
+  rowEl.appendChild(nameEl);
+
+  for (var j = 0; j < currentStore.hoursOpen.length; j++) {
+    var storeHourEl = document.createElement('td');
+    storeHourEl.textContent = currentStore.hoursOpen[j];
+    rowEl.appendChild(storeHourEl);
+  }
+  var dailyTotalEl = document.createElement('td');
+  dailyTotalEl.textContent = currentStore.dailyTotal;
+  rowEl.appendChild(dailyTotalEl);
+}
+
+document.body.appendChild(tableEl);
+/*
 console.log('-----First and Pike Begins----');
 var firstAndPike = {
   name: 'First and Pike',
@@ -241,3 +308,4 @@ for (var i = 0; i < alki.avgHours.length; i++) {
 headerEl.textContent = alki.name;
 sectEl.appendChild(headerEl);
 sectEl.appendChild(listElement);
+*/
