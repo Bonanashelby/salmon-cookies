@@ -66,6 +66,39 @@ for (var i = 0; i < stores.length; i++) {
 }
 
 document.body.appendChild(tableEl);
+
+console.log('————————— lab notes - event listeners—————————');
+
+//ask the Dom for the form
+var storeFormEl = document.getElementById('new-store-form');
+
+storeFormEl.addEventListener('submit', handleSubmit); //adding false(force to bubble)/true(force to capture) as third parameter it swtiches them. stopPropagation in function negates needing this.
+
+function handleSubmit(event){
+  event.preventDefault();
+  //prevent the page from reloading & from trying to post date to back up server
+  event.stopPropagation();
+  //stops event bubbling in parent/child tags. kills capturing
+
+  var name = event.target.cookieStoreName.value;
+  //the event is the actual event listener - target node (form id = ) storeFromEl is the target in this example- cookieStoreName (name of input here) is the input node (the input field thats on the html that's coming from the DOM)- value associate to the input tag
+  var minCustomers = parseInt(event.target.minCust.value);
+  var maxCustomers = parseInt(event.target.maxCust.value);
+  var avgCookies = parseInt(event.target.avgCookies.value);
+  //console.log(name);
+  //console.log(minCustomers);
+  //console.log(maxCustomers);
+  //console.log(avgCookies);
+  var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies);
+  //shows my new cookieStore - min, max and avg cookie sales
+  stores.push(store);
+
+  console.log(store);
+  console.log(store.getAvgCookieCount());
+
+  console.log('User pressed submit button on form!');
+}
+
 /*
 console.log('-----First and Pike Begins----');
 var firstAndPike = {
