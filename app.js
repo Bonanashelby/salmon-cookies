@@ -1,5 +1,105 @@
 'use strict';
 
+function CookieStore(name, minCustomer, maxCustomer, avgCookies, hoursOpen){
+  this.name = name;
+  this.minCustomer = minCustomer;
+  this.maxCustomer = maxCustomer;
+  this.avgCookies = avgCookies;
+  this.hoursOpen = hoursOpen || [];
+  this.dailyTotal = 0;
+}
+
+CookieStore.prototype.getAvgCookieCount = function() {
+  for (var i = 0; i < storeHours.length; i++) {
+    var avgCookiesPerHour = Math.ceil(Math.floor((Math.random() * this.maxCustomer - this.minCustomer) + this.minCustomer) * this.avgCookies);
+    this.hoursOpen.push(avgCookiesPerHour);
+    this.dailyTotal += avgCookiesPerHour;
+  }
+};
+
+var firstAndPike = new CookieStore('First and Pike', 23, 65, 6.3);
+var seaTacAirport = new CookieStore('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new CookieStore('Seattle Center', 11, 38, 3.7);
+var capitolHill = new CookieStore('Capitol Hill', 20, 38, 2.3);
+var alki = new CookieStore('Alki', 2, 16, 4.6);
+
+var storeHours = ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
+
+var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+var tableEl = document.createElement('table');
+
+var headerRowEl = document.createElement('tr');
+tableEl.appendChild(headerRowEl);
+
+var blankEl = document.createElement('th');
+headerRowEl.appendChild(blankEl);
+
+for (var i = 0; i < storeHours.length; i++) {
+  var headerHourEl = document.createElement('td');
+  headerHourEl.textContent = storeHours[i];
+  headerRowEl.appendChild(headerHourEl);
+}
+
+var headerDailyTotalEl = document.createElement('td');
+headerDailyTotalEl.textContent = 'Daily Total';
+headerRowEl.appendChild(headerDailyTotalEl);
+
+for (var i = 0; i < stores.length; i++) {
+  var currentStore = stores[i];
+  currentStore.getAvgCookieCount();
+  var rowEl = document.createElement('tr');
+  tableEl.appendChild(rowEl);
+
+  var nameEl = document.createElement('th');
+  nameEl.textContent = currentStore.name;
+  rowEl.appendChild(nameEl);
+
+  for (var j = 0; j < currentStore.hoursOpen.length; j++) {
+    var storeHourEl = document.createElement('td');
+    storeHourEl.textContent = currentStore.hoursOpen[j];
+    rowEl.appendChild(storeHourEl);
+  }
+  var dailyTotalEl = document.createElement('td');
+  dailyTotalEl.textContent = currentStore.dailyTotal;
+  rowEl.appendChild(dailyTotalEl);
+}
+
+document.body.appendChild(tableEl);
+
+console.log('————————— lab notes - event listeners—————————');
+
+//ask the Dom for the form
+var storeFormEl = document.getElementById('new-store-form');
+
+storeFormEl.addEventListener('submit', handleSubmit); //adding false(force to bubble)/true(force to capture) as third parameter it swtiches them. stopPropagation in function negates needing this.
+
+function handleSubmit(event){
+  event.preventDefault();
+  //prevent the page from reloading & from trying to post date to back up server
+  event.stopPropagation();
+  //stops event bubbling in parent/child tags. kills capturing
+
+  var name = event.target.cookieStoreName.value;
+  //the event is the actual event listener - target node (form id = ) storeFromEl is the target in this example- cookieStoreName (name of input here) is the input node (the input field thats on the html that's coming from the DOM)- value associate to the input tag
+  var minCustomers = parseInt(event.target.minCust.value);
+  var maxCustomers = parseInt(event.target.maxCust.value);
+  var avgCookies = parseInt(event.target.avgCookies.value);
+  //console.log(name);
+  //console.log(minCustomers);
+  //console.log(maxCustomers);
+  //console.log(avgCookies);
+  var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies);
+  //shows my new cookieStore - min, max and avg cookie sales
+  stores.push(store);
+
+  console.log(store);
+  console.log(store.getAvgCookieCount());
+
+  console.log('User pressed submit button on form!');
+}
+
+/*
 console.log('-----First and Pike Begins----');
 var firstAndPike = {
   name: 'First and Pike',
@@ -58,7 +158,7 @@ var seaTacAirport = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -71,11 +171,23 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
-
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < seaTacAirport.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = seaTacAirport.avgHours[i];
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + seaTacAirport.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
 
   listElement.appendChild(listLiEl);
 };
@@ -145,7 +257,7 @@ var capitolHill = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -158,12 +270,23 @@ var sectEl = document.getElementById('cookie-list');
 var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
-
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < capitolHill.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = capitolHill.avgHours[i];
-
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + capitolHill.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
   listElement.appendChild(listLiEl);
 };
 headerEl.textContent = capitolHill.name;
@@ -181,7 +304,7 @@ var alki = {
   cookiesPerHour: function() {
     for (var hours = 0; hours < 15; hours++) {
       console.log('Inside loop ' + hours);
-      var mathStorage = Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies;
+      var mathStorage = Math.ceil(Math.floor(Math.random() * (this.maxCustomer + 1 - this.minCustomer) + this.minCustomer) * this.avgCookies);
       this.avgHours.push(mathStorage);
     }
   }
@@ -195,13 +318,27 @@ var listElement = document.createElement('ul');
 
 var headerEl = document.createElement('h1');
 
+var currentHour = 6;
+var currentTime = '';
+var morning = true;
 for (var i = 0; i < alki.avgHours.length; i++) {
   var listLiEl = document.createElement('li');
-
-  listLiEl.textContent = alki.avgHours[i];
+  if(morning) {
+    currentTime = currentHour + ' :00am';
+    if (currentHour === 11) {
+      morning = false;
+    }
+  } else {
+    currentTime = currentHour + ' :00pm';
+  }
+  listLiEl.textContent = currentTime + ' ' + alki.avgHours[i]; currentHour++;
+  if(currentHour > 12) {
+    currentHour = 1;
+  }
 
   listElement.appendChild(listLiEl);
 };
 headerEl.textContent = alki.name;
 sectEl.appendChild(headerEl);
 sectEl.appendChild(listElement);
+*/
