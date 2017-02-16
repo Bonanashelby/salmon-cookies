@@ -25,6 +25,8 @@ var alki = new CookieStore('Alki', 2, 16, 4.6);
 
 var storeHours = ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
 
+var storeHoursTotal = [];
+
 var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
 var tableEl = document.createElement('table');
@@ -50,6 +52,7 @@ headerRowEl.appendChild(headerDailyTotalEl);
 for (var i = 0; i < stores.length; i++) {
   var currentStore = stores[i];
   currentStore.getAvgCookieCount();
+
   var rowEl = document.createElement('tr');
   tableEl.appendChild(rowEl);
 
@@ -67,32 +70,52 @@ for (var i = 0; i < stores.length; i++) {
   rowEl.appendChild(dailyTotalEl);
 }
 
+for (var i = 0; i < storeHours.length; i++) {
+  var hourAllStoreTotals = 0;
+  //var rowEl = document.createElement('tr');
+  //tableEl.appendChild(rowEl);
+  //var nameEl = document.createElement('th');
+  //nameEl.textContent = currentStore.name;
+  //rowEl.appendChild(nameEl);
+  for (var j = 0; j < stores.length; j++) {
+    var currentStore = stores[j];
+    hourAllStoreTotals += currentStore.hoursOpen[i];
+    //var storeHourEl = document.createElement('td');
+    //storeHourEl.textContent = currentStore.hoursOpen[j];
+    //rowEl.appendChild(storeHourEl);
+  }
+  storeHoursTotal.push(hourAllStoreTotals);
+}
+console.log(storeHoursTotal);
 document.body.appendChild(tableEl);
 
 console.log('————————— lab notes - event listeners—————————');
 
 //ask the Dom for the form
 var storeFormEl = document.getElementById('new-store-form');
+//adding a submit action not connecting to html - storeFormEl^^ is an html node - holding an instance of an html element node -
+storeFormEl.addEventListener('submit', handleSubmit); //adding false(force to bubble)/true(force to capture) as third parameter it swtiches them. stopPropagation in function negates needing this. addEventListener can be for any html element node
 
-storeFormEl.addEventListener('submit', handleSubmit); //adding false(force to bubble)/true(force to capture) as third parameter it swtiches them. stopPropagation in function negates needing this.
-
-function handleSubmit(event){
+function handleSubmit(event){ //using this function to call addEventListener - it is waiting for the submit event to happen - we never actually call it - we hand it off to the addEventListener - passing the function into addEventListener
   event.preventDefault();
   //prevent the page from reloading & from trying to post date to back up server
   event.stopPropagation();
   //stops event bubbling in parent/child tags. kills capturing
+  //^^any tiem you reference a function that's used with with dot notation - you know it's a method - .preventDefault & stopPropagation
 
   var name = event.target.cookieStoreName.value;
   //the event is the actual event listener - target node (form id = ) storeFromEl is the target in this example- cookieStoreName (name of input here) is the input node (the input field thats on the html that's coming from the DOM)- value associate to the input tag
   var minCustomers = parseInt(event.target.minCust.value);
-  var maxCustomers = parseInt(event.target.maxCust.value);
+  //target is the element node that the event itself is attached to
+  var maxCustomers = parseInt(event.target.maxCust.value);//parses a string argument and returns an integer - value is the attribute that the user inputs into the input field. maxCust html element node reference. maxCustomers becomes an integar
   var avgCookies = parseFloat(event.target.avgCookies.value);
-  console.log(event);
+  console.log(name);
   console.log(minCustomers);
   console.log(maxCustomers);
   console.log(avgCookies);
-  var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies);
-  //row element
+
+  var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies); //passing in the variables as arguments for the CookieStore construtors parameters- store is an instance of CookieStore which is also an object-1. object & 2. new instance of CookieStore and that instance is called store.
+  //row element vv
   store.getAvgCookieCount();
   var rowEl = document.createElement('tr');
   tableEl.appendChild(rowEl);
