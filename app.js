@@ -11,7 +11,7 @@ function CookieStore(name, minCustomer, maxCustomer, avgCookies, hoursOpen){
 
 CookieStore.prototype.getAvgCookieCount = function() {
   for (var i = 0; i < storeHours.length; i++) {
-    var avgCookiesPerHour = Math.ceil(Math.floor((Math.random() * this.maxCustomer - this.minCustomer) + this.minCustomer) * this.avgCookies);
+    var avgCookiesPerHour = Math.ceil(Math.floor((Math.random() * (this.maxCustomer - this.minCustomer)) + this.minCustomer) * this.avgCookies);
     this.hoursOpen.push(avgCookiesPerHour);
     this.dailyTotal += avgCookiesPerHour;
   }
@@ -45,6 +45,8 @@ var headerDailyTotalEl = document.createElement('td');
 headerDailyTotalEl.textContent = 'Daily Total';
 headerRowEl.appendChild(headerDailyTotalEl);
 
+//CookieStore.prototype.createRow = function(){
+  //this.getAvgCookieCount();
 for (var i = 0; i < stores.length; i++) {
   var currentStore = stores[i];
   currentStore.getAvgCookieCount();
@@ -85,16 +87,34 @@ function handleSubmit(event){
   var minCustomers = parseInt(event.target.minCust.value);
   var maxCustomers = parseInt(event.target.maxCust.value);
   var avgCookies = parseInt(event.target.avgCookies.value);
-  //console.log(name);
-  //console.log(minCustomers);
-  //console.log(maxCustomers);
-  //console.log(avgCookies);
+  console.log(event);
+  console.log(typeof minCustomers);
+  console.log(typeof maxCustomers);
+  console.log(typeof avgCookies);
   var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies);
+  //row element
+  store.getAvgCookieCount();
+  var rowEl = document.createElement('tr');
+  tableEl.appendChild(rowEl);
+  //heaader element
+  var nameEl = document.createElement('th');
+  nameEl.textContent = store.name;
+  rowEl.appendChild(nameEl);
+  //for loop for hoursOpen
+  for (var j = 0; j < store.hoursOpen.length; j++) {
+    var storeHourEl = document.createElement('td');
+    storeHourEl.textContent = store.hoursOpen[j];
+    rowEl.appendChild(storeHourEl);
+  }//daily total element
+  var dailyTotalEl = document.createElement('td');
+  dailyTotalEl.textContent = store.dailyTotal;
+  rowEl.appendChild(dailyTotalEl);
+
   //shows my new cookieStore - min, max and avg cookie sales
   stores.push(store);
 
   console.log(store);
-  console.log(store.getAvgCookieCount());
+  //console.log(store.getAvgCookieCount());
 
   console.log('User pressed submit button on form!');
 }
