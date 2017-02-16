@@ -86,11 +86,11 @@ function handleSubmit(event){
   //the event is the actual event listener - target node (form id = ) storeFromEl is the target in this example- cookieStoreName (name of input here) is the input node (the input field thats on the html that's coming from the DOM)- value associate to the input tag
   var minCustomers = parseInt(event.target.minCust.value);
   var maxCustomers = parseInt(event.target.maxCust.value);
-  var avgCookies = parseInt(event.target.avgCookies.value);
+  var avgCookies = parseFloat(event.target.avgCookies.value);
   console.log(event);
-  console.log(typeof minCustomers);
-  console.log(typeof maxCustomers);
-  console.log(typeof avgCookies);
+  console.log(minCustomers);
+  console.log(maxCustomers);
+  console.log(avgCookies);
   var store = new CookieStore(name, minCustomers, maxCustomers, avgCookies);
   //row element
   store.getAvgCookieCount();

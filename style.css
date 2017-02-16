@@ -6,6 +6,15 @@ label, input{
   display: block;
 }
 
+#table{
+  display: block;
+}
+
+tr, th, td{
+  border: 2px solid purple;
+  background-color: grey;
+}
+
 #new-store-form{
   width: 50%;
   margin: auto;
