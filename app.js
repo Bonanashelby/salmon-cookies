@@ -5,7 +5,7 @@ function CookieStore(name, minCustomer, maxCustomer, avgCookies, hoursOpen){
   this.minCustomer = minCustomer;
   this.maxCustomer = maxCustomer;
   this.avgCookies = avgCookies;
-  this.hoursOpen = hoursOpen || [];
+  this.hoursOpen = [];
   this.dailyTotal = 0;
 }
 
@@ -28,64 +28,75 @@ var storeHours = ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00
 var storeHoursTotal = [];
 
 var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
-
+//create table element
 var tableEl = document.createElement('table');
-
+//create header elemenet
 var headerRowEl = document.createElement('tr');
 tableEl.appendChild(headerRowEl);
-
+//create blank element for hours to begin
 var blankEl = document.createElement('th');
 headerRowEl.appendChild(blankEl);
-
+//header row hours
 for (var i = 0; i < storeHours.length; i++) {
   var headerHourEl = document.createElement('td');
   headerHourEl.textContent = storeHours[i];
   headerRowEl.appendChild(headerHourEl);
 }
-
+//header table data for daily totals
 var headerDailyTotalEl = document.createElement('td');
 headerDailyTotalEl.textContent = 'Daily Total';
 headerRowEl.appendChild(headerDailyTotalEl);
-
-//CookieStore.prototype.createRow = function(){
-  //this.getAvgCookieCount();
+//for loop for stores average cookies
 for (var i = 0; i < stores.length; i++) {
   var currentStore = stores[i];
   currentStore.getAvgCookieCount();
-
+//row element for store names
   var rowEl = document.createElement('tr');
   tableEl.appendChild(rowEl);
-
+//store name element appending to the row
   var nameEl = document.createElement('th');
   nameEl.textContent = currentStore.name;
   rowEl.appendChild(nameEl);
-
+//for loop for get the store hours avg for each store
   for (var j = 0; j < currentStore.hoursOpen.length; j++) {
     var storeHourEl = document.createElement('td');
     storeHourEl.textContent = currentStore.hoursOpen[j];
     rowEl.appendChild(storeHourEl);
   }
+  //daily totals table data element
   var dailyTotalEl = document.createElement('td');
   dailyTotalEl.textContent = currentStore.dailyTotal;
   rowEl.appendChild(dailyTotalEl);
 }
+//creates total header element on the left column
+var totalsRowEl = document.createElement('tr');
 
+var headerStoreTotalsEl = document.createElement('td');
+headerStoreTotalsEl.textContent = 'Totals';
+totalsRowEl.appendChild(headerStoreTotalsEl);
+tableEl.appendChild(totalsRowEl);
+
+var allTotalsEl = 0;
+
+//creates bottom total figures for ea hour at all stores
 for (var i = 0; i < storeHours.length; i++) {
   var hourAllStoreTotals = 0;
-  //var rowEl = document.createElement('tr');
-  //tableEl.appendChild(rowEl);
-  //var nameEl = document.createElement('th');
-  //nameEl.textContent = currentStore.name;
-  //rowEl.appendChild(nameEl);
+
+//for loop for all the stores
   for (var j = 0; j < stores.length; j++) {
     var currentStore = stores[j];
     hourAllStoreTotals += currentStore.hoursOpen[i];
-    //var storeHourEl = document.createElement('td');
-    //storeHourEl.textContent = currentStore.hoursOpen[j];
-    //rowEl.appendChild(storeHourEl);
   }
-  storeHoursTotal.push(hourAllStoreTotals);
+  allTotalsEl += hourAllStoreTotals;
+  var totalColumnEl = document.createElement('td');
+  totalColumnEl.textContent = hourAllStoreTotals;
+  totalsRowEl.appendChild(totalColumnEl);
+
 }
+var allTotalsLastEl = document.createElement('td');
+allTotalsLastEl.textContent = allTotalsEl;
+totalsRowEl.appendChild(allTotalsLastEl);
+
 console.log(storeHoursTotal);
 document.body.appendChild(tableEl);
 
