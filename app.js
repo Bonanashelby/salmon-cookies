@@ -28,7 +28,8 @@ var storeHours = ['6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00
 var storeHoursTotal = [];
 
 var stores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
-//create table element
+
+//create table element HEADER FUNCTION BEGIN
 var tableEl = document.createElement('table');
 //create header elemenet
 var headerRowEl = document.createElement('tr');
@@ -46,7 +47,8 @@ for (var i = 0; i < storeHours.length; i++) {
 var headerDailyTotalEl = document.createElement('td');
 headerDailyTotalEl.textContent = 'Daily Total';
 headerRowEl.appendChild(headerDailyTotalEl);
-//for loop for stores average cookies
+//HEADER FUNCTION END
+//for loop for stores average cookies MAIN CONTENT FUNCTION
 for (var i = 0; i < stores.length; i++) {
   var currentStore = stores[i];
   currentStore.getAvgCookieCount();
@@ -68,14 +70,16 @@ for (var i = 0; i < stores.length; i++) {
   dailyTotalEl.textContent = currentStore.dailyTotal;
   rowEl.appendChild(dailyTotalEl);
 }
+//MAIN CONTENT FUNCTION END
 //creates total header element on the left column
+//FOOTER FUNCTION
 var totalsRowEl = document.createElement('tr');
-
+//variable for totals header element that appends to the row then to the table
 var headerStoreTotalsEl = document.createElement('td');
 headerStoreTotalsEl.textContent = 'Totals';
 totalsRowEl.appendChild(headerStoreTotalsEl);
 tableEl.appendChild(totalsRowEl);
-
+//variable for all totals
 var allTotalsEl = 0;
 
 //creates bottom total figures for ea hour at all stores
@@ -87,16 +91,18 @@ for (var i = 0; i < storeHours.length; i++) {
     var currentStore = stores[j];
     hourAllStoreTotals += currentStore.hoursOpen[i];
   }
-  allTotalsEl += hourAllStoreTotals;
+  allTotalsEl += hourAllStoreTotals;//so that after the function ends the total stays
+  //total column element
   var totalColumnEl = document.createElement('td');
   totalColumnEl.textContent = hourAllStoreTotals;
   totalsRowEl.appendChild(totalColumnEl);
 
 }
+//last totals element under display totals
 var allTotalsLastEl = document.createElement('td');
 allTotalsLastEl.textContent = allTotalsEl;
 totalsRowEl.appendChild(allTotalsLastEl);
-
+//FOOTER FUNCTION END
 console.log(storeHoursTotal);
 document.body.appendChild(tableEl);
 
@@ -139,7 +145,8 @@ function handleSubmit(event){ //using this function to call addEventListener - i
     var storeHourEl = document.createElement('td');
     storeHourEl.textContent = store.hoursOpen[j];
     rowEl.appendChild(storeHourEl);
-  }//daily total element
+  }
+  //daily total element
   var dailyTotalEl = document.createElement('td');
   dailyTotalEl.textContent = store.dailyTotal;
   rowEl.appendChild(dailyTotalEl);
