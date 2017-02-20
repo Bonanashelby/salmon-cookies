@@ -13,14 +13,29 @@ label, input{
 }
 
 tr, th, td{
-  border: 2px solid purple;
-  background-color: grey;
+  border: 2px solid  #CC5555;
+  background-color: #FF6B6B;
 }
 
-#new-store-form{
-  width: 50%;
-  margin: auto;
-}
+
+fieldset {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 1em;
+  font:50%/1 sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  }
+
+label {
+  float:left;
+  width:20%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+  }
+
 /*------------------BACKGROUND IMAGE------------*/
 .background-image{
   width: 80%;
@@ -60,6 +75,10 @@ li a:hover {
     background-color: #111;
 }
 /*------------------MAIN CONTENT------------------*/
+h2{
+  color: #CC5555;
+}
+
 .card {
   margin: 30px;
   padding: 20px 40px 40px;
@@ -70,7 +89,7 @@ li a:hover {
   border-radius: 6px;
 }
 .card:hover {
-  border-color: #ff99ff;
+  border-color: #FF6B6B;
 }
 
 ul.stores {
@@ -81,7 +100,7 @@ ul.stores {
 .stores li {
   border-radius: 6px;
   display: inline-block;
-  background: #ff9904;
+  background: #FF6B6B;
   color: white;
   padding: 5px 10px;
   margin: 2px;
@@ -145,6 +164,8 @@ header .profile-image:hover {
   display: table;
   margin: 10px auto;
 }
+
+
 
 /*--------------FOOTER----------------*/
 
