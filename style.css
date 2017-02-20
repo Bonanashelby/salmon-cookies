@@ -1,5 +1,5 @@
 
-------------------sales.html---------------
+/*------------------SALES.HTML---------------*/
 #first-user-heading{
   color: green;
 }
@@ -13,44 +13,49 @@ label, input{
 }
 
 tr, th, td{
-  border: 2px solid purple;
-  background-color: grey;
+  border: 2px solid  #CC5555;
+  background-color: #FF6B6B;
 }
 
-#new-store-form{
-  width: 50%;
-  margin: auto;
-}
-----------------------main page ------------------
-.container{
+
+fieldset {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 1em;
+  font:50%/1 sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  }
+
+label {
+  float:left;
+  width:20%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+  }
+
+/*------------------BACKGROUND IMAGE------------*/
+.background-image{
   width: 80%;
   margin: 0 auto;
-  background-image: image(https://unsplash.com/photos/10sTDZAj5sA);
-
 }
-
-header {
-    margin-top: 46px;
+/*-------------------MAIN HEADER---------------*/
+.main-header {
+    margin-top: auto;
     text-align: center;
     color: #FF4040;
     background-color: #b2e4cd;
     display: block;
 }
-
-.main-footer{
-  width: 100%;
-  background-color: black;
-}
-
-ul {
+/*----------------NAVIGATION BAR--------------*/
+.navbar{
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    position: fixed;
-    top: 0;
-    width: 100%;
 }
 
 li {
@@ -65,10 +70,113 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+/* Change the link color to #111 (black) on hover */
+li a:hover {
     background-color: #111;
 }
+/*------------------MAIN CONTENT------------------*/
+h2{
+  color: #CC5555;
+}
 
-.active {
-    background-color: #4CAF50;
+.card {
+  margin: 30px;
+  padding: 20px 40px 40px;
+  max-width: 500px;
+  text-align: left;
+  background: #fff;
+  border-bottom: 4px solid #ccc;
+  border-radius: 6px;
+}
+.card:hover {
+  border-color: #FF6B6B;
+}
+
+ul.stores {
+  padding: 0;
+  text-align: center;
+}
+
+.stores li {
+  border-radius: 6px;
+  display: inline-block;
+  background: #FF6B6B;
+  color: white;
+  padding: 5px 10px;
+  margin: 2px;
+}
+
+.main-nav {
+  width: 100%;
+  background: black;
+  min-height: 30px;
+  padding: 10px;
+  position: fixed;
+  text-align: center;
+}
+.nav {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 700;
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+}
+.nav .name {
+  display: none;
+}
+.nav li {
+  padding: 5px 10px 10px 10px;
+}
+.nav a {
+  transition: all .5s;
+}
+.nav a:hover {
+  color: white
+}
+
+header {
+  text-align: center;
+  background: url('https://source.unsplash.com/6ka4w0Hnmd0/1600x900') no-repeat top center ;
+  background-size: cover;
+  overflow: hidden;
+  padding-top: 60px;
+}
+header {
+  line-height: 1.5;
+}
+header .profile-image {
+  margin-top: 50px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid white;
+  transition: all .5s;
+}
+header .profile-image:hover {
+  transform: scale(1.2) rotate(360deg);
+}
+.tag {
+  background-color: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: table;
+  margin: 10px auto;
+}
+
+
+
+/*--------------FOOTER----------------*/
+
+footer {
+  width: 100%;
+  min-height: 30px;
+  padding: 20px 0 40px 20px;
+}
+
+footer .copyright {
+  top: -8px;
+  margin-right: 20px;
+  font-size: .75em;
 }
